@@ -17,13 +17,10 @@ class TreeController extends Controller
     public function index(): TreeCollection
     {
         $trees = Tree::query()
-            ->orderBy('id')
-            ->select(['id', 'properties', DB::raw('ST_AsGeoJSON(geometry) as geometry')])
             ->limit(50)
-            ->get();
+            ->cursor();
         return new TreeCollection($trees);
     }
-
 
     /**
      * Display the specified resource.

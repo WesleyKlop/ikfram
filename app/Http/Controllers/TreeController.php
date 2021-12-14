@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTreeRequest;
-use App\Http\Requests\UpdateTreeRequest;
 use App\Http\Resources\TreeCollection;
 use App\Http\Resources\TreeResource;
 use App\Models\Tree;
-use Illuminate\Support\Facades\DB;
 
 class TreeController extends Controller
 {

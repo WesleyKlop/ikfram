@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
-use App\Models\Tree;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TreeCollection extends ResourceCollection
@@ -17,13 +18,19 @@ class TreeCollection extends ResourceCollection
     public function toArray($request): array
     {
         return [
-            "type" => "FeatureCollection",
-            "name" => "Bomen",
-            "crs" => ["type" => "name", "properties" => ["name" => "urn:ogc:def:crs:OGC:1.3:CRS84"]],
-            'features' => $this->collection,
+            'type' => 'FeatureCollection',
+            'name' => 'Bomen',
+            'crs' => [
+                'type' => 'name',
+                'properties' => [
+                    'name' => 'urn:ogc:def:crs:OGC:1.3:CRS84',
+                    
+                ],
+            ],
+            'features' => $this
+                ->collection,
         ];
     }
-
 
     /**
      * Customize the outgoing response for the resource.

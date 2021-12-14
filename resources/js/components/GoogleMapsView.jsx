@@ -25,7 +25,7 @@ const containerStyle = {
 
     return isLoaded ? (
         <GoogleMap
-            mapContainerStyle={containerStyle}
+            mapContainerClassName="w-screen h-screen"
             center={ZOETERMEER}
             zoom={14}
             onLoad={onLoad}

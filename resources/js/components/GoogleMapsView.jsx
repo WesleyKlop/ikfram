@@ -10,6 +10,10 @@ const GoogleMapsView = () => {
   const [map, setMap] = useState(null)
 
   const onLoad = useCallback(function callback(map) {
+    const url = new URL('/api/trees', window.location)
+    url.searchParams.set('center[lat]', ZOETERMEER.lat)
+    url.searchParams.set('center[lng]', ZOETERMEER.lng)
+    map.data.loadGeoJson(url.toString())
     setMap(map)
   }, [])
 

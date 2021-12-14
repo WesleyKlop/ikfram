@@ -3,10 +3,11 @@ import GoogleMapsView from './components/GoogleMapsView'
 
 import '../css/app.css'
 
-const App = () => <main>
+const App = () => (
+  <main>
     <p>It works!</p>
     <GoogleMapsView />
-</main>
-
+  </main>
+)
 
 render(<App />, document.getElementById('app'))

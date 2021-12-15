@@ -12,15 +12,16 @@ export default class GeoJsonService {
     }
   }
 
-  async fetchGeoJson(center, zoom, filters) {
+  async fetchGeoJson(center, zoom, filters, limit) {
     // Abort running fetch.
     this.controller?.abort()
     const url = new URL(this.url)
 
     url.searchParams.set('center[lat]', center.lat)
     url.searchParams.set('center[lng]', center.lng)
-    url.searchParams.set('zoom', zoom)
-    // url.searchParams.set('limit', (1000).toString())
+    if (zoom) url.searchParams.set('zoom', zoom)
+    if (limit) url.searchParams.set('limit', limit)
+
     filters.forEach((filter) => {
       this.applyFilter(url, filter.id, filter.options)
     })

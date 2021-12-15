@@ -29,7 +29,23 @@ class TreeController extends Controller
         }
 
         if ($request->filled('filter.neighbourhoods')) {
-            $query->whereIn('properties->BMN_WIJK', $request->input('filter.neighbourhoods'));
+            $query->whereIn('properties->BMN_BUURT', $request->input('filter.neighbourhoods'));
+        }
+
+        if ($request->filled('filter.species')) {
+            $query->whereIn('properties->BMN_BOOMSOORT_LAT', $request->input('filter.species'));
+        }
+
+        if ($request->filled('filter.conditions')) {
+            $query->whereIn('properties->BMN_CONDITIE', $request->input('filter.conditions'));
+        }
+
+        if ($request->filled('filter.risks')) {
+            $query->whereIn('properties->BMN_RISICOKLASSE', $request->input('filter.risks'));
+        }
+
+        if ($request->filled('filter.years')) {
+            $query->whereIn('properties->BMN_PLANTJAAR', $request->input('filter.years'));
         }
 
         return new TreeCollection($query->cursor());

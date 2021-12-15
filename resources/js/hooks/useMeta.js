@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 const isSelectedByDefault = (filter, label) =>
-  filter === 'neighbourhoods' && label === 'Centrum'
+  filter === 'neighbourhoods' && label === 'Rokkeveen-Oost'
 
 const labelMapping = {
   neighbourhoods: 'Wijken',
@@ -11,18 +11,16 @@ const labelMapping = {
   species: 'Soort',
 }
 
-const intoFilter = (id, options) => {
-  return {
-    id,
-    label: labelMapping[id],
-    options: options.map((option, i) => ({
-      id: i + 1,
-      label: option.label,
-      count: option.count,
-      selected: isSelectedByDefault(id, option.label),
-    })),
-  }
-}
+const intoFilter = (id, options) => ({
+  id,
+  label: labelMapping[id],
+  options: options.map((option, i) => ({
+    id: i + 1,
+    label: option.label,
+    count: option.count,
+    selected: isSelectedByDefault(id, option.label),
+  })),
+})
 
 const loadFilters = async () => {
   const { count, ...filters } = await fetch('/api/meta').then((r) => r.json())

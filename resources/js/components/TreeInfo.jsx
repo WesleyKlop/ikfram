@@ -1,8 +1,15 @@
 import { InfoWindow } from '@react-google-maps/api'
 
-const TreeInfo = ({ position, onClose }) => (
+const TreeInfo = ({ position, onClose, properties }) => (
   <InfoWindow onCloseClick={onClose} position={position}>
-    <p>yolo</p>
+    <ul>
+      {Object.entries(properties).map(([key, value]) => (
+        <li>
+          <span className="font-medium">{key}:</span>
+          {value}
+        </li>
+      ))}
+    </ul>
   </InfoWindow>
 )
 

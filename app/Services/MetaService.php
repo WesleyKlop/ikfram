@@ -22,7 +22,7 @@ class MetaService
             'count' => Tree::query()->withoutGlobalScopes()->count(),
         ];
         $filters = [
-            'neighbourhood' => 'BMN_WIJK',
+            'neighbourhood' => 'BMN_BUURT',
             'condition' => 'BMN_CONDITIE',
             'year' => 'BMN_PLANTJAAR',
             'risk' => 'BMN_RISICOKLASSE',
@@ -34,7 +34,6 @@ class MetaService
                 ->withoutGlobalScope('geojson')
                 ->select("properties->${filter} AS label", DB::raw('count(*) AS count'))
                 ->groupBy('label')
-                ->orderByDesc('count')
                 ->get()
                 ->toArray();
         }

@@ -70,22 +70,20 @@ const GoogleMapsView = ({ className, filters }) => {
           <TreeInfo
             onClose={() => setSelectedFeature(null)}
             position={selectedFeature.position}
+            properties={selectedFeature.properties}
           />
         )}
         <MarkerClusterer>
-          {(clusterer) => {
-            clusterer.clearMarkers()
-            return features.map((feature) => {
-              return (
-                <Marker
-                  key={feature.properties.BMN_ID}
-                  position={feature.position}
-                  clusterer={clusterer}
-                  onClick={() => onMarkerClick(feature)}
-                />
-              )
-            })
-          }}
+          {(clusterer) =>
+            features.map((feature) => (
+              <Marker
+                key={feature.properties.BMN_ID}
+                position={feature.position}
+                clusterer={clusterer}
+                onClick={() => onMarkerClick(feature)}
+              />
+            ))
+          }
         </MarkerClusterer>
       </>
     </GoogleMap>

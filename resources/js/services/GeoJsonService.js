@@ -1,23 +1,39 @@
 export default class GeoJsonService {
   constructor(url) {
     this.url = new URL(url, window.location).toString()
+    this.controller = null
   }
 
-  async fetchGeoJson(center, zoom) {
+  applyFilter(url, key, filterOptions) {
+    for (const option of filterOptions) {
+      if (option.selected) {
+        url.searchParams.append(`filter[${key}][]`, option.label)
+      }
+    }
+  }
+
+  async fetchGeoJson(center, zoom, filters) {
+    // Abort running fetch.
+    this.controller?.abort()
     const url = new URL(this.url)
 
     url.searchParams.set('center[lat]', center.lat)
     url.searchParams.set('center[lng]', center.lng)
     url.searchParams.set('zoom', zoom)
     // url.searchParams.set('limit', (1000).toString())
-    url.searchParams.set('filter[neighbourhood]', 'Rokkeveen')
+    filters.forEach((filter) => {
+      this.applyFilter(url, filter.id, filter.options)
+    })
 
+    this.controller = new AbortController()
     const response = await fetch(url.toString(), {
       headers: {
         Accept: 'application/geo+json',
         cache: 'no-cache',
       },
+      signal: this.controller.signal,
     })
+    this.controller = null
 
     if (!response.ok) {
       return []

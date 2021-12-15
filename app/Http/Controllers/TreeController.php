@@ -28,8 +28,8 @@ class TreeController extends Controller
             $query->limit($request->input('limit'));
         }
 
-        if ($request->filled('filter.neighbourhood')) {
-            $query->where('properties->BMN_WIJK', $request->input('filter.neighbourhood'));
+        if ($request->filled('filter.neighbourhoods')) {
+            $query->whereIn('properties->BMN_WIJK', $request->input('filter.neighbourhoods'));
         }
 
         return new TreeCollection($query->cursor());

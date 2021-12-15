@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Tree extends Model
 {
-    use HasFactory;
-
     protected $casts = [
         'properties' => 'object',
         'geometry' => 'object',

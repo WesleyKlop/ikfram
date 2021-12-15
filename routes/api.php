@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\MetaController;
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/trees', TreeController::class, [
     'only' => ['index', 'show'],
 ]);
+
+Route::get('/meta', MetaController::class);

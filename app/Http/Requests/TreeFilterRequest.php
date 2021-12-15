@@ -19,7 +19,7 @@ class TreeFilterRequest extends FormRequest
             'center.lng' => ['required_with:center', 'numeric'],
 
             'filter' => ['nullable', 'array'],
-            'filter.neighbourhood' => ['nullable', 'string'],
+            'filter.neighbourhoods' => ['nullable', 'array'],
 
             'zoom' => ['nullable', 'int'],
 

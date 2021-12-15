@@ -1,4 +1,11 @@
-export const ZOETERMEER = {
+export const ZOETERMEER_CENTER = {
   lat: 52.0585288,
   lng: 4.4958769,
+}
+
+export const ZOETERMEER_BOUNDS = {
+  east: 4.559183642161753,
+  south: 52.031315715337165,
+  north: 52.093035748546306,
+  west: 4.40703960665949,
 }

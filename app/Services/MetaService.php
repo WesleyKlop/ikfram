@@ -34,6 +34,7 @@ class MetaService
                 ->withoutGlobalScope('geojson')
                 ->select("properties->${filter} AS label", DB::raw('count(*) AS count'))
                 ->groupBy('label')
+                ->orderByDesc('count')
                 ->get()
                 ->toArray();
         }

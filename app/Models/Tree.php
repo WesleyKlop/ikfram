@@ -18,6 +18,11 @@ class Tree extends Model
         'geometry' => 'object',
     ];
 
+    public function scopeOrderByDistance(Builder $query, float $lat, float $lng): Builder
+    {
+        return $query->orderByRaw("ST_MakePoint({$lng}, {$lat}) <-> geometry");
+    }
+
     /**
      * The "booted" method of the model.
      */
@@ -25,6 +30,7 @@ class Tree extends Model
     {
         static::addGlobalScope('geojson', function (Builder $builder) {
             $builder->addSelect([
+                'id',
                 'properties',
                 'geometry' => DB::raw('ST_AsGeoJSON(geometry) as geometry'),
             ]);

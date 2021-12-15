@@ -1,6 +1,14 @@
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { memo, useCallback, useState } from 'react'
+import {
+  GoogleMap,
+  Marker,
+  MarkerClusterer,
+  useJsApiLoader,
+} from '@react-google-maps/api'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { ZOETERMEER } from '../constants'
+import GeoJsonService from '../services/GeoJsonService'
+
+const service = new GeoJsonService('/api/trees')
 
 const GoogleMapsView = () => {
   const { isLoaded } = useJsApiLoader({
@@ -8,18 +16,23 @@ const GoogleMapsView = () => {
     googleMapsApiKey: process.env.MIX_MAPS_KEY,
   })
   const [map, setMap] = useState(null)
+  const [features, setFeatures] = useState([])
 
-  const onLoad = useCallback(function callback(map) {
-    const url = new URL('/api/trees', window.location)
-    url.searchParams.set('center[lat]', ZOETERMEER.lat)
-    url.searchParams.set('center[lng]', ZOETERMEER.lng)
-    map.data.loadGeoJson(url.toString())
-    setMap(map)
-  }, [])
+  useEffect(async () => {
+    const newFeatures = await service.fetchGeoJson(ZOETERMEER, 14)
+    setFeatures(newFeatures)
+  }, [setFeatures])
 
-  const onUnmount = useCallback(function callback() {
+  const onLoad = useCallback(
+    async (map) => {
+      setMap(map)
+    },
+    [setMap],
+  )
+
+  const onUnmount = useCallback(() => {
     setMap(null)
-  }, [])
+  }, [setMap])
 
   return isLoaded ? (
     <GoogleMap
@@ -29,11 +42,21 @@ const GoogleMapsView = () => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <></>
+      <MarkerClusterer>
+        {(clusterer) =>
+          features.map((feature) => (
+            <Marker
+              key={feature.properties.BMN_ID}
+              position={feature.position}
+              clusterer={clusterer}
+            />
+          ))
+        }
+      </MarkerClusterer>
     </GoogleMap>
   ) : (
     <></>
   )
 }
 
-export default memo(GoogleMapsView)
+export default GoogleMapsView

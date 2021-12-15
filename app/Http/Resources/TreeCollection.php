@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Response;
 
 class TreeCollection extends ResourceCollection
 {
@@ -13,7 +15,7 @@ class TreeCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      */
     public function toArray($request): array
     {
@@ -26,16 +28,15 @@ class TreeCollection extends ResourceCollection
                     'name' => 'urn:ogc:def:crs:OGC:1.3:CRS84',
                 ],
             ],
-            'features' => $this
-                ->collection,
+            'features' => $this->collection,
         ];
     }
 
     /**
      * Customize the outgoing response for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Response  $response
+     * @param Request $request
+     * @param Response $response
      */
     public function withResponse($request, $response): void
     {

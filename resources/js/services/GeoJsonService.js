@@ -9,6 +9,8 @@ export default class GeoJsonService {
     url.searchParams.set('center[lat]', center.lat)
     url.searchParams.set('center[lng]', center.lng)
     url.searchParams.set('zoom', zoom)
+    // url.searchParams.set('limit', (1000).toString())
+    url.searchParams.set('filter[neighbourhood]', 'Rokkeveen')
 
     const response = await fetch(url.toString(), {
       headers: {

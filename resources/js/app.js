@@ -41,6 +41,7 @@ const App = () => {
         </p>
 
         <PropertyFilter
+          name="neighbourhood"
           label="Wijk"
           onToggle={toggleNeighbourhood}
           options={neighbourhoods}

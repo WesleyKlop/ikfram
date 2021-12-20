@@ -1,7 +1,7 @@
-import useMeta from './hooks/useMeta'
 import PropertyFilterList from './components/PropertyFilterList'
 import GoogleMapsView from './components/GoogleMapsView'
 import AppTitle from './components/AppTitle'
+import { useMeta } from './hooks'
 
 const Application = () => {
   const { filters, updateFilter, count } = useMeta()

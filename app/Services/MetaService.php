@@ -11,9 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class MetaService
 {
+    final public const FILTER_COLUMN_MAPPING = [
+        'neighbourhoods' => 'BMN_WIJK',
+        'conditions' => 'BMN_CONDITIE',
+        'years' => 'BMN_PLANTJAAR',
+        'risks' => 'BMN_RISICOKLASSE',
+        'species' => 'BMN_BOOMSOORT_LAT',
+    ];
+
     public function getMeta(): Meta
     {
-        return Cache::rememberForever('meta', fn (): Meta => $this->fetchMeta());
+        return Cache::remember('meta', 60, fn (): Meta => $this->fetchMeta());
     }
 
     protected function fetchMeta(): Meta
@@ -21,15 +29,8 @@ class MetaService
         $data = [
             'count' => Tree::query()->withoutGlobalScopes()->count(),
         ];
-        $filters = [
-            'neighbourhood' => 'BMN_BUURT',
-            'condition' => 'BMN_CONDITIE',
-            'year' => 'BMN_PLANTJAAR',
-            'risk' => 'BMN_RISICOKLASSE',
-            'species' => 'BMN_BOOMSOORT_LAT',
-        ];
 
-        foreach ($filters as $key => $filter) {
+        foreach (self::FILTER_COLUMN_MAPPING as $key => $filter) {
             $data[$key] = Tree::query()
                 ->withoutGlobalScope('geojson')
                 ->select("properties->${filter} AS label", DB::raw('count(*) AS count'))
@@ -40,10 +41,10 @@ class MetaService
 
         return new Meta(
             $data['count'],
-            $data['neighbourhood'],
-            $data['condition'],
-            $data['year'],
-            $data['risk'],
+            $data['neighbourhoods'],
+            $data['conditions'],
+            $data['years'],
+            $data['risks'],
             $data['species']
         );
     }

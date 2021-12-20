@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Tree extends Model
 {
     protected $casts = [
-        'properties' => 'object',
+        'properties' => 'collection',
         'geometry' => 'object',
     ];
 
@@ -20,9 +20,6 @@ class Tree extends Model
         return $query->orderByRaw("ST_MakePoint({$lng}, {$lat}) <-> geometry");
     }
 
-    /**
-     * The "booted" method of the model.
-     */
     protected static function booted(): void
     {
         static::addGlobalScope('geojson', function (Builder $builder) {

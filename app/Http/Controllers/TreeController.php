@@ -8,6 +8,7 @@ use App\Http\Requests\TreeFilterRequest;
 use App\Http\Resources\TreeCollection;
 use App\Http\Resources\TreeResource;
 use App\Models\Tree;
+use App\Services\MetaService;
 
 class TreeController extends Controller
 {
@@ -28,24 +29,10 @@ class TreeController extends Controller
             $query->limit($request->input('limit'));
         }
 
-        if ($request->filled('filter.neighbourhoods')) {
-            $query->whereIn('properties->BMN_BUURT', $request->input('filter.neighbourhoods'));
-        }
-
-        if ($request->filled('filter.species')) {
-            $query->whereIn('properties->BMN_BOOMSOORT_LAT', $request->input('filter.species'));
-        }
-
-        if ($request->filled('filter.conditions')) {
-            $query->whereIn('properties->BMN_CONDITIE', $request->input('filter.conditions'));
-        }
-
-        if ($request->filled('filter.risks')) {
-            $query->whereIn('properties->BMN_RISICOKLASSE', $request->input('filter.risks'));
-        }
-
-        if ($request->filled('filter.years')) {
-            $query->whereIn('properties->BMN_PLANTJAAR', $request->input('filter.years'));
+        $filter = $request->safe()->filter ?? [];
+        foreach ($filter as $ref => $value) {
+            $key = MetaService::FILTER_COLUMN_MAPPING[$ref];
+            $query->whereIn("properties->${key}", $value);
         }
 
         return new TreeCollection($query->cursor());

@@ -9,7 +9,9 @@ const PropertyFilter = ({ name, label, onToggle, options }) => {
         <>
           <h3 className="-my-3 flow-root">
             <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-              <span className="font-medium text-gray-900">{label}</span>
+              <span className="font-medium text-gray-900">
+                {label} ({options.length})
+              </span>
               <span className="ml-6 flex items-center">
                 {open ? (
                   <MinusSmIcon className="h-5 w-5" aria-hidden="true" />

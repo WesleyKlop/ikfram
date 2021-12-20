@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 
 const isSelectedByDefault = (filter, label) =>
-  filter === 'neighbourhoods' && label === 'Rokkeveen-Oost'
+  filter === 'neighbourhoods' && label === 'Rokkeveen'
 
 const labelMapping = {
-  neighbourhoods: 'Wijken',
+  neighbourhoods: 'Wijk',
   conditions: 'Staat',
   years: 'Plantjaar',
-  risks: "Risico's",
+  risks: 'Risico',
   species: 'Soort',
 }
 

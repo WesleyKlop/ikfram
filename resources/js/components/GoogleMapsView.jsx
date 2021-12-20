@@ -9,27 +9,35 @@ import { ZOETERMEER_CENTER, ZOETERMEER_BOUNDS } from '../constants'
 import GeoJsonService from '../services/GeoJsonService'
 import TreeInfo from './TreeInfo'
 
+import ICON_URL from '../../svg/tree.svg?url'
+
 const service = new GeoJsonService('/api/trees')
 
 const GoogleMapsView = ({ className, filters }) => {
+  const ZOOM = 14
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.MIX_MAPS_KEY,
   })
   const [map, setMap] = useState(null)
-  const [zoom, setZoom] = useState(14)
   const [features, setFeatures] = useState([])
   const [selectedFeature, setSelectedFeature] = useState(null)
 
   useEffect(() => {
     service
-      .fetchGeoJson(ZOETERMEER_CENTER, zoom, filters)
+      .fetchGeoJson(ZOETERMEER_CENTER, ZOOM, filters)
       .then((newFeatures) => setFeatures(newFeatures))
-      .catch((e) => console.error('Something went wrong 🤷‍', e))
-  }, [setFeatures, filters, zoom])
+      .catch((e) => {
+        if (e instanceof DOMException) {
+          // Do nothing because we expect this to happen
+          return
+        }
+        console.log('Something unexpected went wrong 🤷‍', e)
+      })
+  }, [setFeatures, filters])
 
   const onLoad = useCallback(
-    async (map) => {
+    (map) => {
       setMap(map)
     },
     [setMap],
@@ -47,15 +55,11 @@ const GoogleMapsView = ({ className, filters }) => {
     [setSelectedFeature],
   )
 
-  const onZoomChanged = (...args) => {
-    console.log('zoom change', args)
-  }
-
   return isLoaded ? (
     <GoogleMap
       mapContainerClassName={className}
       center={ZOETERMEER_CENTER}
-      zoom={14}
+      zoom={ZOOM}
       onLoad={onLoad}
       onUnmount={onUnmount}
       clickableIcons={false}
@@ -77,6 +81,7 @@ const GoogleMapsView = ({ className, filters }) => {
           {(clusterer) =>
             features.map((feature) => (
               <Marker
+                icon={ICON_URL}
                 key={feature.properties.BMN_ID}
                 position={feature.position}
                 clusterer={clusterer}
@@ -88,7 +93,7 @@ const GoogleMapsView = ({ className, filters }) => {
       </>
     </GoogleMap>
   ) : (
-    <></>
+    <p>Aan het laden...</p>
   )
 }
 

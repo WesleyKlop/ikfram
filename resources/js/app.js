@@ -1,6 +1,12 @@
 import { render } from 'react-dom'
+import { StrictMode } from 'react'
 import Application from './Application'
 
 import '../css/app.css'
 
-render(<Application />, document.getElementById('app'))
+render(
+  <StrictMode>
+    <Application />
+  </StrictMode>,
+  document.getElementById('app'),
+)

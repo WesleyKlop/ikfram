@@ -25,6 +25,9 @@ export default class GeoJsonService {
     filters.forEach((filter) => {
       this.applyFilter(url, filter.id, filter.options)
     })
+    if (filters.length === 0) {
+      url.searchParams.set('limit', '1000')
+    }
 
     this.controller = new AbortController()
     const response = await fetch(url.toString(), {

@@ -13,10 +13,15 @@ const mix = require('laravel-mix')
 
 mix
   .js('resources/js/app.js', 'public/assets')
-  // .css('resources/css/app.css', 'public/assets')
   .react()
   .options({
     postCss: [require('tailwindcss')],
+  })
+  .before((helpers) => {
+    helpers.config.fileLoaderDirs = {
+      images: 'assets',
+      fonts: 'assets',
+    }
   })
 
 mix.disableSuccessNotifications()

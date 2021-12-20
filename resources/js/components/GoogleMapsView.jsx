@@ -7,19 +7,21 @@ import {
 import { memo, useCallback, useEffect, useState } from 'react'
 import { ZOETERMEER_CENTER, ZOETERMEER_BOUNDS } from '../constants'
 import GeoJsonService from '../services/GeoJsonService'
-import TreeInfo from './TreeInfo'
+import { TreeInfo } from './TreeInfo'
+import { useStoreState } from '../hooks/store'
 
-import ICON_URL from '../../svg/tree.svg?url'
+import ICON_URL from '../../svg/tree.svg'
 
+const ZOOM = 14
 const service = new GeoJsonService('/api/trees')
 
-const GoogleMapsView = ({ className, filters }) => {
-  const ZOOM = 14
+export const GoogleMapsView = memo(({ className }) => {
+  const { filters } = useStoreState()
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.MIX_MAPS_KEY,
   })
-  const [map, setMap] = useState(null)
   const [features, setFeatures] = useState([])
   const [selectedFeature, setSelectedFeature] = useState(null)
 
@@ -36,17 +38,6 @@ const GoogleMapsView = ({ className, filters }) => {
       })
   }, [setFeatures, filters])
 
-  const onLoad = useCallback(
-    (map) => {
-      setMap(map)
-    },
-    [setMap],
-  )
-
-  const onUnmount = useCallback(() => {
-    setMap(null)
-  }, [setMap])
-
   const onMarkerClick = useCallback(
     (feature) => {
       setSelectedFeature(feature)
@@ -60,8 +51,6 @@ const GoogleMapsView = ({ className, filters }) => {
       mapContainerClassName={className}
       center={ZOETERMEER_CENTER}
       zoom={ZOOM}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
       clickableIcons={false}
       options={{
         restriction: {
@@ -96,8 +85,6 @@ const GoogleMapsView = ({ className, filters }) => {
       </>
     </GoogleMap>
   ) : (
-    <p>Aan het laden...</p>
+    <p className={className}>Aan het laden...</p>
   )
-}
-
-export default memo(GoogleMapsView)
+})

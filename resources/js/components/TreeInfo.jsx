@@ -1,7 +1,7 @@
 import { InfoWindow } from '@react-google-maps/api'
 import { TREE_PROPERTIES } from '../constants'
 
-const TreeInfo = ({ position, onClose, properties }) => (
+export const TreeInfo = ({ position, onClose, properties }) => (
   <InfoWindow onCloseClick={onClose} position={position}>
     <>
       <span className="text-lg font-medium">
@@ -21,5 +21,3 @@ const TreeInfo = ({ position, onClose, properties }) => (
     </>
   </InfoWindow>
 )
-
-export default TreeInfo

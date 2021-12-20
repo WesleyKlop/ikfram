@@ -1,8 +1,8 @@
 import { Disclosure } from '@headlessui/react'
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
-import PropertyFilterOption from './PropertyFilterOption'
+import { PropertyFilterOption } from './PropertyFilterOption'
 
-const PropertyFilter = ({ name, label, onToggle, options }) => {
+export const PropertyFilter = ({ name, label, onToggle, options }) => {
   return (
     <Disclosure as="div" key={label} className="border-b border-gray-200 pb-4">
       {({ open }) => (
@@ -40,5 +40,3 @@ const PropertyFilter = ({ name, label, onToggle, options }) => {
     </Disclosure>
   )
 }
-
-export default PropertyFilter

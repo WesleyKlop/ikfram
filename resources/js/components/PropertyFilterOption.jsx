@@ -1,4 +1,10 @@
-const PropertyFilterOption = ({ group, label, checked, onToggle, count }) => {
+export const PropertyFilterOption = ({
+  group,
+  label,
+  checked,
+  onToggle,
+  count,
+}) => {
   const key = `filter-${group}-${label.toLowerCase()}`
   return (
     <div className="flex items-center">
@@ -15,5 +21,3 @@ const PropertyFilterOption = ({ group, label, checked, onToggle, count }) => {
     </div>
   )
 }
-
-export default PropertyFilterOption

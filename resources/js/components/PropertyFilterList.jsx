@@ -1,6 +1,6 @@
-import PropertyFilter from './PropertyFilter'
+import { PropertyFilter } from './PropertyFilter'
 
-const PropertyFilterList = ({ filters, updateFilter }) => {
+export const PropertyFilterList = ({ filters, updateFilter }) => {
   return filters.map((filter) => (
     <PropertyFilter
       key={filter.id}
@@ -11,5 +11,3 @@ const PropertyFilterList = ({ filters, updateFilter }) => {
     />
   ))
 }
-
-export default PropertyFilterList

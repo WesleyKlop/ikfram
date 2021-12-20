@@ -3,7 +3,7 @@ import { LABEL_MAPPING } from '../constants'
 
 const intoFilter = (id, options) => ({
   id,
-  label: LABEL_MAPPING[id] || console.log(id),
+  label: LABEL_MAPPING[id],
   options: options.map((option, idx) => ({
     id: idx + 1,
     label: option.label,

@@ -4,7 +4,7 @@ import PropertyFilterOption from './PropertyFilterOption'
 
 const PropertyFilter = ({ name, label, onToggle, options }) => {
   return (
-    <Disclosure as="div" key={label} className="border-b border-gray-200 py-6">
+    <Disclosure as="div" key={label} className="border-b border-gray-200 pb-4">
       {({ open }) => (
         <>
           <h3 className="-my-3 flow-root">

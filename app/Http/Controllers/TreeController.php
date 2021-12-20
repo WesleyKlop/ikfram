@@ -17,7 +17,8 @@ class TreeController extends Controller
      */
     public function index(TreeFilterRequest $request): TreeCollection
     {
-        $query = Tree::query();
+        $query = Tree::query()
+            ->orderBy('properties->BMN_BOOMNUMMER');
 
         if ($request->filled('center')) {
             $latLng = $request->input('center');

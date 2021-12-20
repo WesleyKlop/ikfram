@@ -1,24 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-
-const isSelectedByDefault = (filter, label) =>
-  filter === 'neighbourhoods' && label === 'Rokkeveen'
-
-const labelMapping = {
-  neighbourhoods: 'Wijk',
-  conditions: 'Staat',
-  years: 'Plantjaar',
-  risks: 'Risico',
-  species: 'Soort',
-}
+import { LABEL_MAPPING } from '../constants'
 
 const intoFilter = (id, options) => ({
   id,
-  label: labelMapping[id],
-  options: options.map((option, i) => ({
-    id: i + 1,
+  label: LABEL_MAPPING[id] || console.log(id),
+  options: options.map((option, idx) => ({
+    id: idx + 1,
     label: option.label,
     count: option.count,
-    selected: isSelectedByDefault(id, option.label),
+    selected: false,
   })),
 })
 
@@ -45,9 +35,9 @@ const useMeta = () => {
   }, [setFilters])
 
   const updateFilter = useCallback(
-    (name, selected) => {
+    (id, selected) => {
       const updatedFilter = filters.map((filter) => {
-        if (filter.id !== name) {
+        if (filter.id !== id) {
           return filter
         }
         const updatedOptions = filter.options.map((option) => {

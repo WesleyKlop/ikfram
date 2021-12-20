@@ -1,15 +1,24 @@
 import { InfoWindow } from '@react-google-maps/api'
+import { TREE_PROPERTIES } from '../constants'
 
 const TreeInfo = ({ position, onClose, properties }) => (
   <InfoWindow onCloseClick={onClose} position={position}>
-    <ul>
-      {Object.entries(properties).map(([key, value]) => (
-        <li key={key}>
-          <span className="font-medium">{key}:</span>
-          {value}
-        </li>
-      ))}
-    </ul>
+    <>
+      <span className="text-lg font-medium">
+        {properties.BMN_BOOMSOORT_NED}
+        {properties.BMN_PLANTJAAR
+          ? ` geplant in ${properties.BMN_PLANTJAAR}`
+          : ''}
+      </span>
+      <ul>
+        {TREE_PROPERTIES.map(([prop, label]) => (
+          <li key={prop}>
+            <span className="font-medium">{label}:</span>&nbsp;
+            {properties[prop] ?? 'Onbekend'}
+          </li>
+        ))}
+      </ul>
+    </>
   </InfoWindow>
 )
 

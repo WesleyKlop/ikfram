@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\DataTransferObjects\Meta;
 use App\Models\Tree;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +16,20 @@ class MetaService
         'years' => 'BMN_PLANTJAAR',
         'risks' => 'BMN_RISICOKLASSE',
         'species' => 'BMN_BOOMSOORT_LAT',
+        'genus' => 'BMN_LAT_KORT',
+        'ground' => 'BMN_STANDPLAATS',
+        'height' => 'BMN_BHR_BOOMHOOGTE',
+        'maintainer' => 'BMN_ONDERHOUDSPLICHTIGE',
+        'special-status' => 'BMN_BLD_BIJZONDERE_STATUS',
+        'growth-rate' => 'BMN_GROEISNELHEID',
     ];
 
-    public function getMeta(): Meta
+    public function getMeta(): array
     {
-        return Cache::remember('meta', 60, fn (): Meta => $this->fetchMeta());
+        return Cache::remember('meta', 60, fn () => $this->fetchMeta());
     }
 
-    protected function fetchMeta(): Meta
+    protected function fetchMeta(): array
     {
         $data = [
             'count' => Tree::query()->withoutGlobalScopes()->count(),
@@ -39,13 +44,6 @@ class MetaService
                 ->toArray();
         }
 
-        return new Meta(
-            $data['count'],
-            $data['neighbourhoods'],
-            $data['conditions'],
-            $data['years'],
-            $data['risks'],
-            $data['species']
-        );
+        return $data;
     }
 }

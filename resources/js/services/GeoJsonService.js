@@ -1,3 +1,13 @@
+/**
+ * @param {URLSearchParams} searchParams
+ */
+const hasAnyFilterApplied = (searchParams) => {
+  for (const param of searchParams.keys()) {
+    if (param.startsWith('filter[')) return true
+  }
+  return false
+}
+
 export default class GeoJsonService {
   constructor(url) {
     this.url = new URL(url, window.location).toString()
@@ -25,7 +35,7 @@ export default class GeoJsonService {
     filters.forEach((filter) => {
       this.applyFilter(url, filter.id, filter.options)
     })
-    if (filters.length === 0) {
+    if (!hasAnyFilterApplied(url.searchParams)) {
       url.searchParams.set('limit', '1000')
     }
 

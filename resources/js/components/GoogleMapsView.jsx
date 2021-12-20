@@ -78,8 +78,11 @@ const GoogleMapsView = ({ className, filters }) => {
           />
         )}
         <MarkerClusterer>
-          {(clusterer) =>
-            features.map((feature) => (
+          {(clusterer) => {
+            if (clusterer.getTotalMarkers() !== features.length) {
+              clusterer.clearMarkers()
+            }
+            return features.map((feature) => (
               <Marker
                 icon={ICON_URL}
                 key={feature.properties.BMN_ID}
@@ -88,7 +91,7 @@ const GoogleMapsView = ({ className, filters }) => {
                 onClick={() => onMarkerClick(feature)}
               />
             ))
-          }
+          }}
         </MarkerClusterer>
       </>
     </GoogleMap>

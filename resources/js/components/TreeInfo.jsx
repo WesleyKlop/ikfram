@@ -5,7 +5,9 @@ export const TreeInfo = ({ position, onClose, properties }) => (
   <InfoWindow onCloseClick={onClose} position={position}>
     <>
       <span className="text-lg font-medium">
-        {properties.BMN_BOOMSOORT_NED}
+        {properties.BMN_BOOMSOORT_NED
+          ? properties.BMN_BOOMSOORT_NED
+          : 'Onbekende boom'}
         {properties.BMN_PLANTJAAR
           ? ` geplant in ${properties.BMN_PLANTJAAR}`
           : ''}

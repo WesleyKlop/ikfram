@@ -4,7 +4,7 @@ import { PropertyFilterList } from './PropertyFilterList'
 
 export const Sidebar = () => {
   const { count, filters } = useStoreState()
-  const { dispatch } = useStoreDispatch()
+  const dispatch = useStoreDispatch()
 
   const updateFilter = (id, selected) =>
     dispatch({ type: 'UPDATE_FILTER', payload: { id, selected } })

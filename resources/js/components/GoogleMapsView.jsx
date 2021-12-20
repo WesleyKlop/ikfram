@@ -38,15 +38,11 @@ export const GoogleMapsView = memo(({ className }) => {
       })
   }, [setFeatures, filters])
 
-  const onMarkerClick = useCallback(
-    (feature) => {
-      setSelectedFeature(feature)
-      console.log('marker click', feature)
-    },
-    [setSelectedFeature],
-  )
+  if (!isLoaded) {
+    return <p className={className}>Aan het laden...</p>
+  }
 
-  return isLoaded ? (
+  return (
     <GoogleMap
       mapContainerClassName={className}
       center={ZOETERMEER_CENTER}
@@ -77,14 +73,12 @@ export const GoogleMapsView = memo(({ className }) => {
                 key={feature.properties.BMN_ID}
                 position={feature.position}
                 clusterer={clusterer}
-                onClick={() => onMarkerClick(feature)}
+                onClick={() => setSelectedFeature(feature)}
               />
             ))
           }}
         </MarkerClusterer>
       </>
     </GoogleMap>
-  ) : (
-    <p className={className}>Aan het laden...</p>
   )
 })

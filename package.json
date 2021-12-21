@@ -30,7 +30,7 @@
         "react-dom": "^17.0.2"
     },
     "lint-staged": {
-        "*.{js,mjs,jsx,css,md}": "prettier --write",
+        "*.{js,mjs,jsx,css,md,yml}": "prettier --write",
         "*.php": [
             "vendor/bin/rector process",
             "vendor/bin/ecs check --fix"

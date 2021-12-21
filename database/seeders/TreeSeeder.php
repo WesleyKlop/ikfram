@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Tree;
@@ -11,12 +13,11 @@ class TreeSeeder extends Seeder
     /**
      * Run the database seeds.
      *
-     * @return void
      * @throws \JsonException
      */
     public function run(): void
     {
-        /** @noinspection JsonEncodingApiUsageInspection */
+        ini_set('memory_limit', '-1');
         $parsedJson = json_decode(file_get_contents(
             resource_path('geojson/bomen-zoetermeer.geojson')
         ), false, flags: JSON_THROW_ON_ERROR);

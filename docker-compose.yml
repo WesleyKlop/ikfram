@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgis/postgis:14-3.1-alpine
+    environment:
+      POSTGRES_USER: ikfram
+      POSTGRES_PASSWORD: boompjeboompjeboompje
+      POSTGRES_DB: ikfram
+    expose:
+      - 5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  application:
+    image: ghcr.io/wesleyklop/ikfram:latest
+    build: .
+    ports:
+      - '8088:80'
+    env_file: .env.dist
+    depends_on:
+      - database
+    volumes:
+      - app-log-data:/app/storage/logs
+      - app-data:/app/storage/app
+    environment:
+      MAPS_KEY: ''
+
+volumes:
+  db-data:
+  app-log-data:
+  app-data:

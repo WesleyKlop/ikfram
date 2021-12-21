@@ -1,0 +1,13 @@
+/node_modules
+/vendor
+
+/.husky
+/bootstrap/cache/*
+/storage
+/.env
+
+# Public
+/public/hot
+/public/storage
+/public/assets
+

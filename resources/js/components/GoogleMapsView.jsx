@@ -19,8 +19,7 @@ export const GoogleMapsView = memo(({ className }) => {
   const { filters } = useStoreState()
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.MIX_MAPS_KEY,
+    googleMapsApiKey: globalThis.__APP_CONFIG.mapsKey,
   })
   const [features, setFeatures] = useState([])
   const [selectedFeature, setSelectedFeature] = useState(null)

@@ -62,8 +62,10 @@ export const useStoreState = () => {
   const context = useContext(store)
   return context.state
 }
+
 export const useStoreDispatch = () => {
   const context = useContext(store)
   return context.dispatch
 }
+
 export const useStore = () => useContext(store)

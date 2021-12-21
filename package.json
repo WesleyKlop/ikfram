@@ -6,8 +6,8 @@
         "hot": "mix watch --hot",
         "production": "mix --production",
         "prepare": "husky install",
-        "lint:fix": "prettier --write resources/js resources/css",
-        "lint:check": "prettier resources/js resources/css"
+        "lint:fix": "prettier --write resources/js resources/css .github",
+        "lint:check": "prettier resources/js resources/css .github"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.16.5",

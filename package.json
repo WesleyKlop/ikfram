@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.16.5",
-        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
         "@tailwindcss/forms": "^0.4.0",
         "autoprefixer": "^10.4.0",
         "husky": "^7.0.4",

@@ -10,7 +10,7 @@
         "lint:check": "prettier resources/js resources/css .github"
     },
     "devDependencies": {
-        "@babel/preset-react": "^7.16.5",
+        "@babel/preset-react": "^7.16.7",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
         "@tailwindcss/forms": "^0.4.0",
         "autoprefixer": "^10.4.0",

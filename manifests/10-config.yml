@@ -12,7 +12,7 @@ kind: ConfigMap
 metadata:
   name: ikfram-config
 data:
-  APP_NAME: 'IKFRAM'
+  APP_NAME: 'Boompj3x'
   APP_ENV: production
   APP_DEBUG: 'false'
   APP_URL: https://IKFRAM.wesl.io

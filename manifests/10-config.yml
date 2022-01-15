@@ -17,7 +17,7 @@ data:
   APP_DEBUG: 'false'
   APP_URL: https://IKFRAM.wesl.io
 
-  LOG_CHANNEL: daily
+  LOG_CHANNEL: stderr
 
   # postgres
   DB_CONNECTION: pgsql

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ikfram-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ikfram
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ikfram
+    spec:
+      imagePullSecrets:
+        - name: ghcr-access-token
+      containers:
+        - name: app
+          image: ghcr.io/wesleyklop/ikfram:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /app/storage
+              name: storage
+          envFrom:
+            - configMapRef:
+                name: ikfram-config
+            - secretRef:
+                name: ikfram-secrets
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: ikfram-storage

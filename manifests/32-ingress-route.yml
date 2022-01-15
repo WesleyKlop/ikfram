@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ikfram-ingress-route
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ikfram.wesl.io`)
+      kind: Rule
+      services:
+        - name: ikfram-svc
+          port: app
+      middlewares:
+        - name: forward-auth
+          namespace: traefik

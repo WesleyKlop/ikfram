@@ -11,6 +11,3 @@ spec:
       services:
         - name: ikfram-svc
           port: app
-      middlewares:
-        - name: forward-auth
-          namespace: traefik

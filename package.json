@@ -15,7 +15,7 @@
         "@tailwindcss/forms": "^0.4.0",
         "autoprefixer": "^10.4.2",
         "husky": "^7.0.4",
-        "laravel-mix": "^6.0.6",
+        "laravel-mix": "^6.0.41",
         "lint-staged": "^12.1.7",
         "postcss": "^8.4.5",
         "prettier": "^2.5.1",
